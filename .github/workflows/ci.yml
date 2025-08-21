@@ -1,0 +1,58 @@
+name: Build & Push Image to Amazon Private ECR
+
+run-name: Run triggered by ${{ github.event_name }} with commit message ${{ github.event.head_commit.message }}
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  
+  build-and-push:
+    runs-on: ubuntu-latest 
+
+    env:
+      REPOSITORY: ${{ secrets.ECR_REPO }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_GITHUB_OIDC_ROLE_ARN }}
+          role-session-name: GitHubActionsSession
+
+      - name: Login to Amazon ECR Private Registry
+        uses: aws-actions/amazon-ecr-login@v2
+        id: login-ecr
+
+      - name: Build Docker images with docker-compose
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker compose build
+          
+      - name: Tag and push backend image
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker tag biometric-backend:latest $REGISTRY/$REPOSITORY:backend
+          docker push $REGISTRY/$REPOSITORY:latest
+          docker push $REGISTRY/$REPOSITORY:${{ github.sha }}
+
+      - name: Tag and push frontend image
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker tag biometric-frontend:latest $REGISTRY/$REPOSITORY:frontend
+          docker tag biometric-frontend:latest $REGISTRY/$REPOSITORY:${{ github.sha }}
+          docker push $REGISTRY/$REPOSITORY:latest
+          docker push $REGISTRY/$REPOSITORY:${{ github.sha }}
