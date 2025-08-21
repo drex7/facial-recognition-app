@@ -45,15 +45,12 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
           docker images
-          docker tag biometric-backend:latest $REGISTRY/$REPOSITORY:backend
-          docker push $REGISTRY/$REPOSITORY:latest
-          docker push $REGISTRY/$REPOSITORY:${{ github.sha }}
+          docker tag facial-recognition-app/backend:latest $REGISTRY/$REPOSITORY:backend
+          docker push $REGISTRY/$REPOSITORY:backend
 
       - name: Tag and push frontend image
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker tag biometric-frontend:latest $REGISTRY/$REPOSITORY:frontend
-          docker tag biometric-frontend:latest $REGISTRY/$REPOSITORY:${{ github.sha }}
-          docker push $REGISTRY/$REPOSITORY:latest
-          docker push $REGISTRY/$REPOSITORY:${{ github.sha }}
+          docker tag facial-recognition-app/frontend:latest $REGISTRY/$REPOSITORY:frontend
+          docker push $REGISTRY/$REPOSITORY:frontend
