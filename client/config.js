@@ -19,7 +19,7 @@ const API_CONFIG = {
 
 // Helper function to build full API URL
 function getApiUrl(endpoint) {
-  return API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS[endpoint];
+  return API_CONFIG.BASE_URL + ':5000' + API_CONFIG.ENDPOINTS[endpoint] ;
 }
 
 // Export for use in other scripts

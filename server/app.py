@@ -39,7 +39,7 @@ def create_app(config_name=None):
 
     # # Enable CORS with specific origin(s)
     CORS(app, resources={
-         r"/user/*": {"origins": "http://localhost:5000"}})
+         r"/user/*": {"origins": "https://uxjh3zwiuz.eu-central-1.awsapprunner.com"}})
 
     # Load the default configuration if config_name is not provided
     if config_name is None:

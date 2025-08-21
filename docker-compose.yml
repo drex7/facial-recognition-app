@@ -11,12 +11,15 @@ services:
     environment:
       - FLASK_ENV=production
       - FLASK_APP=app.py
-      - PROD_DATABASE_URL=postgresql://biometric_user:biometric_pass@database:5433/biometric
-      - PROD_SECRET_KEY=your-super-secret-key-change-in-production
+      - PROD_DATABASE_URL=$PROD_DATABASE_URL
+      - PROD_SECRET_KEY=$PROD_SECRET_KEY
     volumes:
       - ./server:/app
-    depends_on:
-      - database
+    secrets:
+      - secret_key
+      - database_url
+    # depends_on:
+    #   - database
     restart: unless-stopped
     
 
@@ -34,19 +37,26 @@ services:
       - backend
     restart: unless-stopped
 
-  database:
-    image: postgres:15-alpine
-    container_name: biometric-db
-    environment:
-      - POSTGRES_DB=biometric
-      - POSTGRES_USER=biometric_user
-      - POSTGRES_PASSWORD=biometric_pass
-      - PGPORT=5433
-    ports:
-      - "5435:5433"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: unless-stopped
 
-volumes:
-  postgres_data:
+#   database:
+#     image: postgres:15-alpine
+#     container_name: biometric-db
+#     environment:
+#       - POSTGRES_DB=biometric
+#       - POSTGRES_USER=biometric_user
+#       - POSTGRES_PASSWORD=biometric_pass
+#       - PGPORT=5433
+#     ports:
+#       - "5435:5433"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     restart: unless-stopped
+
+# volumes:
+#   postgres_data:
+
+secrets:
+  secret_key:
+    environment: PROD_SECRET_KEY
+  database_url:
+    environment: PROD_DATABASE_URL
