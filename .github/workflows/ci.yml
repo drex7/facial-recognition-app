@@ -44,6 +44,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
+          docker images
           docker tag biometric-backend:latest $REGISTRY/$REPOSITORY:backend
           docker push $REGISTRY/$REPOSITORY:latest
           docker push $REGISTRY/$REPOSITORY:${{ github.sha }}
