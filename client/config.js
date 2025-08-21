@@ -1,20 +1,20 @@
 // API Configuration
 const API_CONFIG = {
   // Default to current domain for containerized setup
-  BASE_URL: window.location.origin,
-  
+  BASE_URL: "https://ynt6whi2wj.eu-central-1.awsapprunner.com",
+
   // API endpoints
   ENDPOINTS: {
-    REGISTER: '/user/register',
-    LOGIN: '/user/login', 
-    LOGOUT: '/user/logout',
-    DELETE_ACCOUNT: '/user/delete_account',
-    USER_DETAILS: '/user/details',
-    REFRESH_TOKEN: '/user/refresh_token',
-    START_BACKEND: '/user/start-backend',
-    STORE_BIOMETRIC: '/user/store_biometric_data',
-    AUTHENTICATE_BIOMETRIC: '/user/authenticate_with_biometrics'
-  }
+    REGISTER: "/user/register",
+    LOGIN: "/user/login",
+    LOGOUT: "/user/logout",
+    DELETE_ACCOUNT: "/user/delete_account",
+    USER_DETAILS: "/user/details",
+    REFRESH_TOKEN: "/user/refresh_token",
+    START_BACKEND: "/user/start-backend",
+    STORE_BIOMETRIC: "/user/store_biometric_data",
+    AUTHENTICATE_BIOMETRIC: "/user/authenticate_with_biometrics",
+  },
 };
 
 // Helper function to build full API URL
