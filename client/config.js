@@ -19,7 +19,8 @@ const API_CONFIG = {
 
 // Helper function to build full API URL
 function getApiUrl(endpoint) {
-  return API_CONFIG.BASE_URL + ':5000' + API_CONFIG.ENDPOINTS[endpoint] ;
+  const PORT = API_CONFIG.BASE_URL.includes('localhost') ? ':5000' : '';
+  return API_CONFIG.BASE_URL + PORT + API_CONFIG.ENDPOINTS[endpoint] ;
 }
 
 // Export for use in other scripts
