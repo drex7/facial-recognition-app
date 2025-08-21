@@ -12,8 +12,8 @@ const API_CONFIG = {
     USER_DETAILS: '/user/details',
     REFRESH_TOKEN: '/user/refresh_token',
     START_BACKEND: '/user/start-backend',
-    STORE_BIOMETRIC: '/store_biometric_data',
-    AUTHENTICATE_BIOMETRIC: '/authenticate_with_biometrics'
+    STORE_BIOMETRIC: '/user/store_biometric_data',
+    AUTHENTICATE_BIOMETRIC: '/user/authenticate_with_biometrics'
   }
 };
 

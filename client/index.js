@@ -150,7 +150,7 @@ function startBackend() {
   showLoadingModal();
 
   // Make a request to the backend to start it
-  fetch("http://localhost:5000/user/start-backend", {
+  fetch(getApiUrl('START_BACKEND'), {
     method: "GET",
   })
     .then((response) => {

@@ -11,7 +11,7 @@
  */
 function handleLogout() {
   // Make a fetch request to the logout route on the backend
-  fetch("http://localhost:5000/user/logout", {
+  fetch(getApiUrl('LOGOUT'), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -46,7 +46,7 @@ function handleDeleteAccount() {
   }
 
   if (token) {
-    fetch("http://localhost:5000/user/delete_account", {
+    fetch(getApiUrl('DELETE_ACCOUNT'), {
       method: "DELETE",
       body: JSON.stringify({ email: userEmail }),
       headers: {
@@ -97,7 +97,7 @@ function fetchAndDisplayUserDetails() {
   }
 
   if (token) {
-    fetch("http://localhost:5000/user/details", {
+    fetch(getApiUrl('USER_DETAILS'), {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -162,7 +162,7 @@ function refreshAccessToken() {
   }
 
   // Make a request to the server to refresh the access token
-  fetch("http://localhost:5000/user/refresh_token", {
+  fetch(getApiUrl('REFRESH_TOKEN'), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

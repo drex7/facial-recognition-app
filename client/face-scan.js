@@ -1,3 +1,5 @@
+
+
 /**
  * This file contains functions for webcam access, face capture, and biometric authentication.
  * @file
@@ -95,11 +97,11 @@ function setupBiometricAuthentication() {
   // Capture and encode the user's face
   captureAndEncodeFace()
   .then((capturedFaceData) => {
-      console.log("Captured face data:", capturedFaceData);
+      
       if (capturedFaceData) {
         // Send the captured face data to the server for storage
         const accessToken = localStorage.getItem("accessToken");
-        return fetch("http://localhost:5000/user/store_biometric_data", {
+        return fetch(getApiUrl('STORE_BIOMETRIC'), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -143,7 +145,7 @@ function authenticateWithBiometrics() {
   captureAndEncodeFace()
     .then((capturedFaceData) => {
       if (capturedFaceData) {
-        return fetch("http://localhost:5000/user/authenticate_with_biometrics", {
+        return fetch(getApiUrl('AUTHENTICATE_BIOMETRIC'), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

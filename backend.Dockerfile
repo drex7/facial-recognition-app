@@ -7,8 +7,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
+
 COPY server/requirements_clean.txt .
 RUN pip install --no-cache-dir -r requirements_clean.txt
+
+# Install curl
+RUN apk add --no-cache curl
 
 COPY server/ .
 

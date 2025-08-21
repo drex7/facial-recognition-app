@@ -29,7 +29,7 @@ function handleSignUp(event) {
   };
 
   // Send a POST request to the signup route
-  fetch("http://localhost:5000/user/register", {
+  fetch(getApiUrl('REGISTER'), {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -84,7 +84,7 @@ function handleLogIn(event) {
   };
 
   // Send a POST request to the login route
-  fetch("http://localhost:5000/user/login", {
+  fetch(getApiUrl('LOGIN'), {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
