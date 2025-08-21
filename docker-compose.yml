@@ -1,0 +1,50 @@
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    container_name: biometric-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_APP=app.py
+      - PROD_DATABASE_URL=postgresql://biometric_user:biometric_pass@database:5433/biometric
+      - PROD_SECRET_KEY=your-super-secret-key-change-in-production
+    volumes:
+      - ./server:/app
+    depends_on:
+      - database
+    restart: unless-stopped
+    
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    container_name: biometric-frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./client:/usr/share/nginx/html
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  database:
+    image: postgres:15-alpine
+    container_name: biometric-db
+    environment:
+      - POSTGRES_DB=biometric
+      - POSTGRES_USER=biometric_user
+      - POSTGRES_PASSWORD=biometric_pass
+      - PGPORT=5433
+    ports:
+      - "5435:5433"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
